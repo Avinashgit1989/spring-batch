@@ -1,6 +1,9 @@
 package com.learnwithak.spring.batch.job.writter.csv;
 
 import com.learnwithak.spring.batch.job.model.csv.StudentCsv;
+import com.learnwithak.spring.batch.job.reader.csv.CsvItemReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.file.FlatFileFooterCallback;
 import org.springframework.batch.item.file.FlatFileHeaderCallback;
 import org.springframework.batch.item.file.FlatFileItemWriter;
@@ -17,11 +20,11 @@ import java.time.LocalDateTime;
 
 @Configuration
 public class CsvItemWriter {
-
+    public static final Logger LOG = LoggerFactory.getLogger(CsvItemWriter.class);
 
     @Bean
     public FlatFileItemWriter<StudentCsv> studentCsvFlatFileItemWriter() throws Exception {
-            System.out.println("inside writer :: Writing CSV item");
+            LOG.info("Calling CsvItemWriter method :: studentCsvFlatFileItemWriter");
         FlatFileItemWriter<StudentCsv> flatFileItemWriter = new FlatFileItemWriter<StudentCsv>();
         flatFileItemWriter.setResource(new FileSystemResource(new File("E:\\spring-batch-git\\spring-batch\\spring-batch-chunk-datasource\\src\\main\\resources\\output\\csv\\students.csv")));
 

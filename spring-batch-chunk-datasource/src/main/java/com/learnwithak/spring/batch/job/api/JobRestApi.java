@@ -1,5 +1,7 @@
 package com.learnwithak.spring.batch.job.api;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.JobParameters;
@@ -21,22 +23,38 @@ import java.util.Map;
 @RestController
 @RequestMapping("api/job")
 public class JobRestApi {
+    public static final Logger LOG = LoggerFactory.getLogger(JobRestApi.class);
 
     @Autowired
     private JobLauncher jobLauncher;
 
     @Autowired
-    private Job myChunkjob;
+    private Job csvChunkjob;
+    @Autowired
+    private Job jsonChunkjob;
 
-    @GetMapping("/start/{jobName}")
-    public String startJob(@PathVariable String jobName) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+    @GetMapping("/start/csv/{jobName}")
+    public String startCsvJob(@PathVariable String jobName) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
         Map<String, JobParameter<?>> params = new HashMap<>();
         params.put("CurrentTime", new JobParameter<>(LocalDateTime.now(), LocalDateTime.class));
         JobParameters jobParameters = new JobParameters(params);
-        if (jobName.equalsIgnoreCase("myChunkjob")) {
-            jobLauncher.run(myChunkjob, jobParameters);
+        if (jobName.equalsIgnoreCase("csvChunkJob")) {
+            LOG.info("CSV Logger API is calling...");
+            jobLauncher.run(csvChunkjob, jobParameters);
         }
-        System.out.println("Job Started Time :: "+LocalDateTime.now());
+        LOG.info("Job Started Time :: "+LocalDateTime.now());
+        return jobName+ " Started successfully ...";
+    }
+    @GetMapping("/start/json/{jobName}")
+    public String startJsonJob(@PathVariable String jobName) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+        Map<String, JobParameter<?>> params = new HashMap<>();
+        params.put("CurrentTime", new JobParameter<>(LocalDateTime.now(), LocalDateTime.class));
+        JobParameters jobParameters = new JobParameters(params);
+        if (jobName.equalsIgnoreCase("jsonChunkJob")) {
+            LOG.info("JSON API is calling...");
+            jobLauncher.run(jsonChunkjob, jobParameters);
+        }
+        LOG.info("Job Started Time :: "+LocalDateTime.now());
         return jobName+ " Started successfully ...";
     }
 }

@@ -1,6 +1,9 @@
 package com.learnwithak.spring.batch.job.reader.csv;
 
+import com.learnwithak.spring.batch.job.config.CsvChunkJobConfiguration;
 import com.learnwithak.spring.batch.job.model.csv.StudentCsv;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
@@ -15,10 +18,12 @@ import org.springframework.core.io.FileSystemResource;
 import java.io.File;
 @Configuration
 public class CsvItemReader {
+    public static final Logger LOG = LoggerFactory.getLogger(CsvItemReader.class);
 
 @Bean
     public FlatFileItemReader<StudentCsv> studentCsvFlatFileItemReader() throws UnexpectedInputException,
         ParseException, NonTransientResourceException {
+    LOG.info("Calling CsvItemReader method :: studentCsvFlatFileItemReader");
         FlatFileItemReader<StudentCsv> flatFileItemReader = new FlatFileItemReader<StudentCsv>();
         flatFileItemReader.setResource(new FileSystemResource(new File("E:\\spring-batch-git\\spring-batch\\spring-batch-chunk-datasource\\src\\main\\resources\\input\\csv\\students.csv")));
 

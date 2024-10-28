@@ -1,7 +1,7 @@
 package com.learnwithak.spring.batch.job.config;
 
-import com.learnwithak.spring.batch.job.api.JobRestApi;
 import com.learnwithak.spring.batch.job.model.csv.StudentCsv;
+import com.learnwithak.spring.batch.job.model.json.StudentJson;
 import com.learnwithak.spring.batch.job.processor.csv.CsvItemProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,45 +12,53 @@ import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.FlatFileItemWriter;
+import org.springframework.batch.item.json.JsonFileItemWriter;
+import org.springframework.batch.item.json.JsonItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.transaction.PlatformTransactionManager;
 
+
+
 @Configuration
-public class CsvChunkJobConfiguration {
-    public static final Logger LOG = LoggerFactory.getLogger(CsvChunkJobConfiguration.class);
+public class JsonChunkJobConfiguration {
+    public static final Logger LOG = LoggerFactory.getLogger(JsonChunkJobConfiguration.class);
     @Autowired
-    FlatFileItemReader<StudentCsv> chunkReader;
+    JsonItemReader<StudentJson> chunkReader;
     @Autowired
-    FlatFileItemWriter<StudentCsv> chunkWriter;
+    JsonFileItemWriter<StudentJson> chunkWriter;
     @Autowired
     CsvItemProcessor chunkItemProcessor;
 
-    public CsvChunkJobConfiguration(FlatFileItemReader<StudentCsv> chunkReader, FlatFileItemWriter<StudentCsv> chunkWriter, CsvItemProcessor chunkItemProcessor) {
+    public JsonChunkJobConfiguration(JsonItemReader<StudentJson> chunkReader, JsonFileItemWriter<StudentJson> chunkWriter, CsvItemProcessor chunkItemProcessor) {
         this.chunkReader = chunkReader;
         this.chunkWriter = chunkWriter;
         this.chunkItemProcessor = chunkItemProcessor;
     }
 
     @Bean
-    public Job csvChunkjob(JobRepository jobRepository,
+    public Job jsonChunkjob(JobRepository jobRepository,
                         PlatformTransactionManager transactionManager){
-        LOG.info("CSV Job is being called...");
-        return new JobBuilder("CsvChunkJob", jobRepository)
-                .start(csvChunkJobStep(jobRepository,transactionManager))
+        LOG.info("Calling JsonChunkJob method...");
+        return new JobBuilder("JsonChunkJob", jobRepository)
+                .start(jsonChunkJobStep(jobRepository,transactionManager))
                 .build();
     }
     @Bean
-    public Step csvChunkJobStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
-        LOG.info("CSV Steps is being called...");
+    public Step jsonChunkJobStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+        LOG.info("Calling JsonChunkStep method...");
         return new StepBuilder("chunkStep",jobRepository)
-                .<StudentCsv, StudentCsv>chunk(3, transactionManager)
+                .<StudentJson, StudentJson>chunk(3, transactionManager)
                 .reader(chunkReader)
                 //.processor(chunkItemProcessor)
                 .writer(chunkWriter)
                 .build();
     }
 
+
+
 }
+
+
