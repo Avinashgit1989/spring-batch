@@ -10,7 +10,7 @@ import lombok.ToString;
 public class StudentCsv {
     private Long id;
     private String firstName;
-   // @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     private  String lastName;
     private String email;
 
