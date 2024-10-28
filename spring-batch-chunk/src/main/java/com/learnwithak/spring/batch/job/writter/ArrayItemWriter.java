@@ -2,7 +2,9 @@ package com.learnwithak.spring.batch.job.writter;
 
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ArrayItemWriter  implements ItemWriter<Long> {
 
     @Override

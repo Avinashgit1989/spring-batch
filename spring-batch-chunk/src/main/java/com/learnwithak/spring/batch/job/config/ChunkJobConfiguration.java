@@ -8,15 +8,25 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 public class ChunkJobConfiguration {
-    ArrayListReader chunkReader = new ArrayListReader();
-    ArrayItemWriter chunkWriter = new ArrayItemWriter();
-    ArrayItemProcessor chunkItemProcessor = new ArrayItemProcessor();
+    @Autowired
+    ArrayListReader chunkReader;
+    @Autowired
+    ArrayItemWriter chunkWriter;
+    @Autowired
+    ArrayItemProcessor chunkItemProcessor;
+
+    public ChunkJobConfiguration(ArrayListReader chunkReader, ArrayItemWriter chunkWriter, ArrayItemProcessor chunkItemProcessor) {
+        this.chunkReader = chunkReader;
+        this.chunkWriter = chunkWriter;
+        this.chunkItemProcessor = chunkItemProcessor;
+    }
 
     @Bean
     public Job myChunkjob(JobRepository jobRepository,
