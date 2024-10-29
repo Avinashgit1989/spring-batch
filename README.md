@@ -31,3 +31,11 @@ in this code i have added student-with-error.csv file which is containing the wo
 #### To Read MySql data and wrtie in csv file use below URL:
 
   - [URL to read from MySQL and write to CSV ](http://localhost:8080/api/job/start/jdbc_to_csv/JdbcToCsvChunkjob)
+
+#### To Read MySql data and wrtie in json file use below URL:
+
+  - [URL to read from MySQL and write to JSON ](http://localhost:8080/api/job/start/jdbc_to_json/JdbcToJsonChunkjob)
+
+#### To Read MySql data and wrtie in xml file use below URL:
+
+  - [URL to read from MySQL and write to XML ](http://localhost:8080/api/job/start/jdbc_to_xml/JdbcToXmlChunkjob)
