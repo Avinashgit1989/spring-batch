@@ -1,8 +1,7 @@
 package com.learnwithak.spring.batch.job.config;
 
-import com.learnwithak.spring.batch.job.model.csv.StudentCsv;
 import com.learnwithak.spring.batch.job.model.json.StudentJson;
-import com.learnwithak.spring.batch.job.processor.csv.CsvItemProcessor;
+import com.learnwithak.spring.batch.job.processor.json.JsonItemProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -10,12 +9,9 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.item.file.FlatFileItemReader;
-import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.json.JsonFileItemWriter;
 import org.springframework.batch.item.json.JsonItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -30,9 +26,11 @@ public class JsonChunkJobConfiguration {
     @Autowired
     JsonFileItemWriter<StudentJson> chunkWriter;
     @Autowired
-    CsvItemProcessor chunkItemProcessor;
+    JsonItemProcessor chunkItemProcessor;
 
-    public JsonChunkJobConfiguration(JsonItemReader<StudentJson> chunkReader, JsonFileItemWriter<StudentJson> chunkWriter, CsvItemProcessor chunkItemProcessor) {
+    public JsonChunkJobConfiguration(JsonItemReader<StudentJson> chunkReader,
+                                     JsonFileItemWriter<StudentJson> chunkWriter,
+                                     JsonItemProcessor chunkItemProcessor) {
         this.chunkReader = chunkReader;
         this.chunkWriter = chunkWriter;
         this.chunkItemProcessor = chunkItemProcessor;
@@ -52,13 +50,9 @@ public class JsonChunkJobConfiguration {
         return new StepBuilder("chunkStep",jobRepository)
                 .<StudentJson, StudentJson>chunk(3, transactionManager)
                 .reader(chunkReader)
-                //.processor(chunkItemProcessor)
+                .processor(chunkItemProcessor)
                 .writer(chunkWriter)
                 .build();
     }
 
-
-
 }
-
-

@@ -1,8 +1,7 @@
 package com.learnwithak.spring.batch.job.config;
 
-import com.learnwithak.spring.batch.job.model.json.StudentJson;
 import com.learnwithak.spring.batch.job.model.xml.StudentXml;
-import com.learnwithak.spring.batch.job.processor.csv.CsvItemProcessor;
+import com.learnwithak.spring.batch.job.processor.xml.XmlItemProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -26,9 +25,11 @@ public class XmlChunkJobConfiguration {
     @Autowired
     StaxEventItemWriter<StudentXml> chunkWriter;
     @Autowired
-    CsvItemProcessor chunkItemProcessor;
+    XmlItemProcessor chunkItemProcessor;
 
-    public XmlChunkJobConfiguration(StaxEventItemReader<StudentXml> chunkReader, StaxEventItemWriter<StudentXml> chunkWriter, CsvItemProcessor chunkItemProcessor) {
+    public XmlChunkJobConfiguration(StaxEventItemReader<StudentXml> chunkReader,
+                                    StaxEventItemWriter<StudentXml> chunkWriter,
+                                    XmlItemProcessor chunkItemProcessor) {
         this.chunkReader = chunkReader;
         this.chunkWriter = chunkWriter;
         this.chunkItemProcessor = chunkItemProcessor;
@@ -48,13 +49,9 @@ public class XmlChunkJobConfiguration {
         return new StepBuilder("chunkStep",jobRepository)
                 .<StudentXml, StudentXml >chunk(3, transactionManager)
                 .reader(chunkReader)
-                //.processor(chunkItemProcessor)
+                .processor(chunkItemProcessor)
                 .writer(chunkWriter)
                 .build();
     }
 
-
-
 }
-
-

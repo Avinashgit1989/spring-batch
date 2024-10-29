@@ -1,17 +1,17 @@
-package com.learnwithak.spring.batch.job.processor.csv;
+package com.learnwithak.spring.batch.job.processor.json;
 
-import com.learnwithak.spring.batch.job.model.csv.StudentCsv;
+import com.learnwithak.spring.batch.job.model.json.StudentJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CsvItemProcessor implements ItemProcessor<StudentCsv, StudentCsv>{
-    public static final Logger LOG = LoggerFactory.getLogger(CsvItemProcessor.class);
+public class JsonItemProcessor implements ItemProcessor<StudentJson, StudentJson>{
+    public static final Logger LOG = LoggerFactory.getLogger(JsonItemProcessor.class);
 
     @Override
-    public StudentCsv process(StudentCsv item) throws Exception {
+    public StudentJson process(StudentJson item) throws Exception {
         LOG.info("Inside Item processor :: Converting Student Item to Upper Case");
         if (item != null){
             item.setFirstName(item.getFirstName().toUpperCase());

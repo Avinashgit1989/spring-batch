@@ -1,8 +1,8 @@
 [
- {"id":3,"firstName":"Abhinav","lastName":"Srivastva","email":"abhinav@gmail.com"},
- {"id":4,"firstName":"Prabhakar","lastName":"Mishra","email":"mishra@gmail.com"},
- {"id":5,"firstName":"Suraj","lastName":"Tiwari","email":"suraj@gmail.com"},
- {"id":6,"firstName":"anjali","lastName":"mishra","email":"anjali@gmail.com"},
- {"id":7,"firstName":"pankaj","lastName":"tripath","email":"pankaj@gmail.com"},
- {"id":8,"firstName":"rahul","lastName":"gupta","email":"rahul@gmail.com"}
+ {"id":3,"firstName":"ABHINAV","lastName":"SRIVASTVA","email":"ABHINAV@GMAIL.COM"},
+ {"id":4,"firstName":"PRABHAKAR","lastName":"MISHRA","email":"MISHRA@GMAIL.COM"},
+ {"id":5,"firstName":"SURAJ","lastName":"TIWARI","email":"SURAJ@GMAIL.COM"},
+ {"id":6,"firstName":"ANJALI","lastName":"MISHRA","email":"ANJALI@GMAIL.COM"},
+ {"id":7,"firstName":"PANKAJ","lastName":"TRIPATH","email":"PANKAJ@GMAIL.COM"},
+ {"id":8,"firstName":"RAHUL","lastName":"GUPTA","email":"RAHUL@GMAIL.COM"}
 ]

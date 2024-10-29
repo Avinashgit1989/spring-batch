@@ -1,6 +1,5 @@
 package com.learnwithak.spring.batch.job.config;
 
-import com.learnwithak.spring.batch.job.api.JobRestApi;
 import com.learnwithak.spring.batch.job.model.csv.StudentCsv;
 import com.learnwithak.spring.batch.job.processor.csv.CsvItemProcessor;
 import org.slf4j.Logger;
@@ -15,7 +14,6 @@ import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
@@ -28,7 +26,9 @@ public class CsvChunkJobConfiguration {
     @Autowired
     CsvItemProcessor chunkItemProcessor;
 
-    public CsvChunkJobConfiguration(FlatFileItemReader<StudentCsv> chunkReader, FlatFileItemWriter<StudentCsv> chunkWriter, CsvItemProcessor chunkItemProcessor) {
+    public CsvChunkJobConfiguration(FlatFileItemReader<StudentCsv> chunkReader,
+                                    FlatFileItemWriter<StudentCsv> chunkWriter,
+                                    CsvItemProcessor chunkItemProcessor) {
         this.chunkReader = chunkReader;
         this.chunkWriter = chunkWriter;
         this.chunkItemProcessor = chunkItemProcessor;
@@ -48,7 +48,7 @@ public class CsvChunkJobConfiguration {
         return new StepBuilder("chunkStep",jobRepository)
                 .<StudentCsv, StudentCsv>chunk(3, transactionManager)
                 .reader(chunkReader)
-                //.processor(chunkItemProcessor)
+                .processor(chunkItemProcessor)
                 .writer(chunkWriter)
                 .build();
     }
