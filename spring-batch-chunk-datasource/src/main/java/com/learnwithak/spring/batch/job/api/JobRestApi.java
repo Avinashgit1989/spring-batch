@@ -40,6 +40,13 @@ public class JobRestApi {
 
     @Autowired
     private Job jdbcToCsvChunkJob;
+
+    @Autowired
+    private Job jdbcToJsonChunkJob;
+
+    @Autowired
+    private Job jdbcToXmlChunkJob;
+
     @GetMapping("/start/csv/{jobName}")
     public String startCsvJob(@PathVariable String jobName) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
         Map<String, JobParameter<?>> params = new HashMap<>();
@@ -99,6 +106,31 @@ public class JobRestApi {
         if (jobName.equalsIgnoreCase("jdbcToCsvChunkJob")) {
             LOG.info("Jdbc To csv API is calling...");
             jobLauncher.run(jdbcToCsvChunkJob, jobParameters);
+        }
+        LOG.info("Job Started Time :: "+LocalDateTime.now());
+        return jobName+ " Started successfully ...";
+    }
+    @GetMapping("/start/jdbc_to_json/{jobName}")
+    public String startJdbcToJsonJob(@PathVariable String jobName) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+        Map<String, JobParameter<?>> params = new HashMap<>();
+        params.put("CurrentTime", new JobParameter<>(LocalDateTime.now(), LocalDateTime.class));
+        JobParameters jobParameters = new JobParameters(params);
+        if (jobName.equalsIgnoreCase("jdbcToJsonChunkJob")) {
+            LOG.info("Jdbc To Json API is calling...");
+            jobLauncher.run(jdbcToJsonChunkJob, jobParameters);
+        }
+        LOG.info("Job Started Time :: "+LocalDateTime.now());
+        return jobName+ " Started successfully ...";
+    }
+
+    @GetMapping("/start/jdbc_to_xml/{jobName}")
+    public String startJdbcToXmlJob(@PathVariable String jobName) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+        Map<String, JobParameter<?>> params = new HashMap<>();
+        params.put("CurrentTime", new JobParameter<>(LocalDateTime.now(), LocalDateTime.class));
+        JobParameters jobParameters = new JobParameters(params);
+        if (jobName.equalsIgnoreCase("jdbcToXmlChunkJob")) {
+            LOG.info("Jdbc To Xml API is calling...");
+            jobLauncher.run(jdbcToXmlChunkJob, jobParameters);
         }
         LOG.info("Job Started Time :: "+LocalDateTime.now());
         return jobName+ " Started successfully ...";
