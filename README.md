@@ -28,3 +28,6 @@ in this code i have added student-with-error.csv file which is containing the wo
   - [URL to read from CSV and write to MySql Db ](http://localhost:8080/api/job/start/csv_to_jdbc/csvToJdbcChunkjob)
 
  
+#### To Read MySql data and wrtie in csv file use below URL:
+
+  - [URL to read from MySQL and write to CSV ](http://localhost:8080/api/job/start/jdbc_to_csv/JdbcToCsvChunkjob)
