@@ -35,6 +35,8 @@ public class JobRestApi {
 
     @Autowired
     private Job xmlChunkjob;
+    @Autowired
+    private Job csvToJdbcChunkjob;
 
     @GetMapping("/start/csv/{jobName}")
     public String startCsvJob(@PathVariable String jobName) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
@@ -69,6 +71,19 @@ public class JobRestApi {
         if (jobName.equalsIgnoreCase("xmlChunkJob")) {
             LOG.info("XML API is calling...");
             jobLauncher.run(xmlChunkjob, jobParameters);
+        }
+        LOG.info("Job Started Time :: "+LocalDateTime.now());
+        return jobName+ " Started successfully ...";
+    }
+
+    @GetMapping("/start/csv_to_jdbc/{jobName}")
+    public String startCsvToJdbcJob(@PathVariable String jobName) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+        Map<String, JobParameter<?>> params = new HashMap<>();
+        params.put("CurrentTime", new JobParameter<>(LocalDateTime.now(), LocalDateTime.class));
+        JobParameters jobParameters = new JobParameters(params);
+        if (jobName.equalsIgnoreCase("csvToJdbcChunkJob")) {
+            LOG.info("Csv To Jdbc API is calling...");
+            jobLauncher.run(csvToJdbcChunkjob, jobParameters);
         }
         LOG.info("Job Started Time :: "+LocalDateTime.now());
         return jobName+ " Started successfully ...";
