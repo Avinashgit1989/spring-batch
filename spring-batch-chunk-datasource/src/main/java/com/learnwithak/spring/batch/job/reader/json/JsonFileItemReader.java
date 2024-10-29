@@ -23,9 +23,9 @@ public class JsonFileItemReader {
 
         jsonFileReader.setJsonObjectReader(new JacksonJsonObjectReader<>(StudentJson.class));
         //To read only 8 item
-        jsonFileReader.setMaxItemCount(8);
+       // jsonFileReader.setMaxItemCount(8);
         // to skip 2 value from json file
-        jsonFileReader.setCurrentItemCount(2);
+        //jsonFileReader.setCurrentItemCount(2);
         return jsonFileReader;
 
     }
