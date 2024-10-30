@@ -16,7 +16,15 @@ public class CsvItemProcessor implements ItemProcessor<StudentCsv, StudentCsv>{
         if (item != null){
             item.setFirstName(item.getFirstName().toUpperCase());
             item.setLastName(item.getLastName().toUpperCase());
-            item.setEmail(item.getEmail().toUpperCase());
+            /**I have added if block to apply the retry functionality
+             *  that i have added in CsvChunkJobConfigurationWithFaultTolerance config class.
+             *  you can comment if you have no retry functionality is required.
+            */
+             if ("retry@example.com".equals(item.getEmail())) {
+                throw new RuntimeException("Transient error, retry this student.");
+            }else {
+                item.setEmail(item.getEmail().toUpperCase());
+            }
         }
         return item;
     }
