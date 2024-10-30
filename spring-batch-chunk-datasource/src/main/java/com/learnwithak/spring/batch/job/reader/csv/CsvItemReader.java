@@ -25,9 +25,9 @@ public class CsvItemReader {
         ParseException, NonTransientResourceException {
     LOG.info("Calling CsvItemReader method :: studentCsvFlatFileItemReader");
         FlatFileItemReader<StudentCsv> flatFileItemReader = new FlatFileItemReader<StudentCsv>();
-        //flatFileItemReader.setResource(new FileSystemResource(new File("E:\\spring-batch-git\\spring-batch\\spring-batch-chunk-datasource\\src\\main\\resources\\input\\csv\\students.csv")));
+        flatFileItemReader.setResource(new FileSystemResource(new File("E:\\spring-batch-git\\spring-batch\\spring-batch-chunk-datasource\\src\\main\\resources\\input\\csv\\students.csv")));
        //Note:: Use below code to check students-with-error.csv. In this case it will call the fault tolerance to retry.
-        flatFileItemReader.setResource(new FileSystemResource(new File("E:\\spring-batch-git\\spring-batch\\spring-batch-chunk-datasource\\src\\main\\resources\\input\\csv\\students_with_error.csv")));
+        //flatFileItemReader.setResource(new FileSystemResource(new File("E:\\spring-batch-git\\spring-batch\\spring-batch-chunk-datasource\\src\\main\\resources\\input\\csv\\students_with_error.csv")));
         flatFileItemReader.setLineMapper(new DefaultLineMapper<StudentCsv>(){
             {
                 setLineTokenizer(new DelimitedLineTokenizer(){
