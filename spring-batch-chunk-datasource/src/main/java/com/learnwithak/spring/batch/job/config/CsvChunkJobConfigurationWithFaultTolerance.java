@@ -1,5 +1,6 @@
 package com.learnwithak.spring.batch.job.config;
 
+import com.learnwithak.spring.batch.job.listener.SkipItemListener;
 import com.learnwithak.spring.batch.job.model.csv.StudentCsv;
 import com.learnwithak.spring.batch.job.processor.csv.CsvItemProcessor;
 import org.slf4j.Logger;
@@ -27,6 +28,8 @@ public class CsvChunkJobConfigurationWithFaultTolerance {
     FlatFileItemWriter<StudentCsv> chunkWriter;
     @Autowired
     CsvItemProcessor chunkItemProcessor;
+    @Autowired
+    SkipItemListener skipListener;
 
     public CsvChunkJobConfigurationWithFaultTolerance(FlatFileItemReader<StudentCsv> chunkReader,
                                                       FlatFileItemWriter<StudentCsv> chunkWriter,
@@ -62,6 +65,7 @@ public class CsvChunkJobConfigurationWithFaultTolerance {
                 // Retry up to 3 times for each item
                 .retryLimit(3)
                 .skipPolicy(new AlwaysSkipItemSkipPolicy()) //it is use to skip the faulty item always.
+                .listener(skipListener)//Added listener to write the corrupt data to file in skip directory under output directory
                 .build();
     }
 
