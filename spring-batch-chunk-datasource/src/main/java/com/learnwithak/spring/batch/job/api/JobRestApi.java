@@ -1,5 +1,6 @@
 package com.learnwithak.spring.batch.job.api;
 
+import com.learnwithak.spring.batch.job.service.AsyncJobService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -52,6 +53,9 @@ public class JobRestApi {
     private Job xmlToJdbcChunkjob;
     @Autowired
     private Job csvChunkJobWithFaultTolerance;
+
+    @Autowired
+    AsyncJobService asyncJobService;
 
     @GetMapping("/start/csv/{jobName}")
     public String startCsvJob(@PathVariable String jobName) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
@@ -178,5 +182,10 @@ public class JobRestApi {
         }
         LOG.info("Job Started Time :: "+LocalDateTime.now());
         return jobName+ " Started successfully ...";
+    }
+    @GetMapping("/start/async/{jobName}")
+    public String asyncJob(@PathVariable String jobName) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+        asyncJobService.asyncJobService(jobName);
+        return jobName+ " Started.. ";
     }
 }
