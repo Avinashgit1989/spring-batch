@@ -47,3 +47,16 @@ in this code i have added student-with-error.csv file which is containing the wo
  #### To Read Xml file data and wrtie in Mysql use below URL:
 
   - [URL to read Xml file data and wrtie in Mysql use below URL](http://localhost:8080/api/job/start/xml_to_jdbc/XmlToJdbcChunkjob)   
+
+ #### To Read Xml file data and wrtie in another xml file with Async job use below URL:
+
+  - [URL to read Xml file data and wrtie in another xml file with Async job use below URL](http://localhost:8080/api/job/start/async/xmlChunkjob)
+
+Added a functionality to crearte a scheduled spring batch job which will autometically run based on the scheduled configuration.
+
+## Spring-batch-tasklet.
+
+#### This job contains the functionlaity to merge the two job. 1 is tasklet type and 2nd is of chunk type.
+- [Use below Url to test the JOB](http://localhost:8080/api/job/start/firstJob)
+
+
