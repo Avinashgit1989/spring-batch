@@ -1,6 +1,7 @@
 package com.learnwithak.spring.batch.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@XmlRootElement(name="student")
 public class Student {
 
     private Long id;
