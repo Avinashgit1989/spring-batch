@@ -21,6 +21,7 @@ public class CsvTaskletReader{
         LOG.info("Reader :: Reading Students details from CSV");
         FlatFileItemReader<Student> flatFileItemReader = new FlatFileItemReader<Student>();
         flatFileItemReader.setResource(new FileSystemResource(new File("E:\\spring-batch-git\\spring-batch\\spring-batch-tasklet\\src\\main\\resources\\input\\csv\\students.csv")));
+        //flatFileItemReader.setResource(new FileSystemResource(new File("E:\\spring-batch-git\\spring-batch\\spring-batch-tasklet\\src\\main\\resources\\input\\csv\\students.txt")));
         flatFileItemReader.setLineMapper(new DefaultLineMapper<Student>(){
             {
                 setLineTokenizer(new DelimitedLineTokenizer(){

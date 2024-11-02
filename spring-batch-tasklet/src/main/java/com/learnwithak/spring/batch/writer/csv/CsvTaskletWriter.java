@@ -26,6 +26,7 @@ public class CsvTaskletWriter {
         LOG.info("Calling CsvItemWriter method :: studentCsvFlatFileItemWriter");
         FlatFileItemWriter<Student> flatFileItemWriter = new FlatFileItemWriter<Student>();
         flatFileItemWriter.setResource(new FileSystemResource(new File("E:\\spring-batch-git\\spring-batch\\spring-batch-tasklet\\src\\main\\resources\\output\\csv\\students.csv")));
+        //flatFileItemWriter.setResource(new FileSystemResource(new File("E:\\spring-batch-git\\spring-batch\\spring-batch-tasklet\\src\\main\\resources\\output\\csv\\students.txt")));
         //flatFileItemWriter.setAppendAllowed(true); // Append mode if needed
         flatFileItemWriter.setHeaderCallback(new FlatFileHeaderCallback() {
             @Override
