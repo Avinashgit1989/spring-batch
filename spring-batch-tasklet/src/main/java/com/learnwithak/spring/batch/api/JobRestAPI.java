@@ -34,6 +34,10 @@ public class JobRestAPI {
     @Autowired
     private Job csvTaskletJob;
 
+    @Autowired
+    private Job jsonTaskletJob;
+
+
     @GetMapping("/start/{jobName}")
     public String startJob(@PathVariable String jobName) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
         Map<String, JobParameter<?>> params = new HashMap<>();
@@ -54,6 +58,18 @@ public class JobRestAPI {
         if (jobName.equalsIgnoreCase("CsvTaskletJob")) {
             LOG.info("Tasklet CSV Job Executing...");
             jobLauncher.run(csvTaskletJob, jobParameters);
+        }
+        return jobName+ " Started..";
+    }
+
+    @GetMapping("/start/tasklet/json/{jobName}")
+    public String startTaskletJsonJob(@PathVariable String jobName) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+        Map<String, JobParameter<?>> params = new HashMap<>();
+        params.put("CurrentTime", new JobParameter<>(LocalDateTime.now(), LocalDateTime.class));
+        JobParameters jobParameters = new JobParameters(params);
+        if (jobName.equalsIgnoreCase("JsonTaskletJob")) {
+            LOG.info("Tasklet Json Job Executing...");
+            jobLauncher.run(jsonTaskletJob, jobParameters);
         }
         return jobName+ " Started..";
     }
