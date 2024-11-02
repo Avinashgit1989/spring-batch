@@ -25,8 +25,9 @@ public class CsvTaskletWriter {
     public FlatFileItemWriter<Student> studentCsvFlatFileItemWriter() throws Exception {
         LOG.info("Calling CsvItemWriter method :: studentCsvFlatFileItemWriter");
         FlatFileItemWriter<Student> flatFileItemWriter = new FlatFileItemWriter<Student>();
-        flatFileItemWriter.setResource(new FileSystemResource(new File("E:\\spring-batch-git\\spring-batch\\spring-batch-tasklet\\src\\main\\resources\\output\\csv\\students.csv")));
-        //flatFileItemWriter.setResource(new FileSystemResource(new File("E:\\spring-batch-git\\spring-batch\\spring-batch-tasklet\\src\\main\\resources\\output\\csv\\students.txt")));
+        //flatFileItemWriter.setResource(new FileSystemResource(new File("E:\\spring-batch-git\\spring-batch\\spring-batch-tasklet\\src\\main\\resources\\output\\csv\\students.csv")));
+        flatFileItemWriter.setResource(new FileSystemResource(new File("E:\\spring-batch-git\\spring-batch\\spring-batch-tasklet\\src\\main\\resources\\output\\tsv\\students.tsv")));
+        //flatFileItemWriter.setResource(new FileSystemResource(new File("E:\\spring-batch-git\\spring-batch\\spring-batch-tasklet\\src\\main\\resources\\output\\txt\\students.txt")));
         //flatFileItemWriter.setAppendAllowed(true); // Append mode if needed
         flatFileItemWriter.setHeaderCallback(new FlatFileHeaderCallback() {
             @Override
@@ -36,7 +37,8 @@ public class CsvTaskletWriter {
         });
         flatFileItemWriter.setLineAggregator(new DelimitedLineAggregator<Student>(){
             {
-                setDelimiter(",");
+              //  setDelimiter("\t"); // enable this for .tsv file
+                setDelimiter(","); //enable this for .csv and .txt file
                 setFieldExtractor(new BeanWrapperFieldExtractor<Student>(){
                     {
                         setNames(new String[] {"id","firstName", "lastName", "email"});
