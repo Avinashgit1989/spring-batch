@@ -60,6 +60,7 @@ Added a functionality to crearte a scheduled spring batch job which will automet
 - [Use below Url to test the JOB](http://localhost:8080/api/job/start/firstJob)
 
 #### Tasklet job to read CSV file from input/csv directory, Process item to make Uppercase and then write in output/csv directory.
+##### Note: you can use same code to read the txt file as well. to test with txt fileReader and writer pls enable txt code from reader and writer class.
 - [Use below Url to Read, Process, Write using tasklet](http://localhost:8080/api/job/start/tasklet/csv/csvTaskletJob)
 
 #### Tasklet job to read Json file from input/json directory, Process item to make Uppercase and then write in output/json directory.
