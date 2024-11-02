@@ -59,4 +59,5 @@ Added a functionality to crearte a scheduled spring batch job which will automet
 #### This job contains the functionlaity to merge the two job. 1 is tasklet type and 2nd is of chunk type.
 - [Use below Url to test the JOB](http://localhost:8080/api/job/start/firstJob)
 
-
+#### Tasklet job to read CSV file from input/csv directory, Process item to make Uppercase and then write in output/csv directory.
+- [Use below Url to Read, Process, Write using tasklet](http://localhost:8080/api/job/start/tasklet/csv/csvTaskletJob)
